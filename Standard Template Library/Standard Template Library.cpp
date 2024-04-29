@@ -29,7 +29,13 @@ public:  const char* what() const noexcept override {
 // Function to calculate character 
 char character(char start, int offset) {
 
+    //if offset >= 26? => throw InvalidRangeException();
    
+   
+    if (offset >=26) {
+        throw InvalidRangeException();
+    }
+
     if (!isalpha(start)) {
         throw InvalidCharacterException();
     }
@@ -50,9 +56,24 @@ int main() {
     try {
         
         cout << "character('a', 1)  = "  << character('a', 1)   << endl; // should return 'b'
-        cout << "character('a', -1) = " << character('a', -1)   << endl; // should throw an InvalidRangeException
         cout << "character('Z', -1) = " << character('Z', -1)   << endl; // should return 'Y'
+
         cout << "character('?', 5)  = "  << character('?', 5)   << endl; // should throw an InvalidCharacterException
+        
+    }
+    catch (const exception& ex) {
+        cerr << "Exception: " << ex.what() << endl;
+    }
+
+    try {        
+        cout << "character('a', -1) = " << character('a', -1) << endl; // should throw an InvalidRangeException
+    }
+    catch (const exception& ex) {
+        cerr << "Exception: " << ex.what() << endl;
+    }
+
+    try {
+        cout << "character('A', 32) = " << character('A', 32) << endl; // should throw an InvalidRangeException
     }
     catch (const exception& ex) {
         cerr << "Exception: " << ex.what() << endl;
